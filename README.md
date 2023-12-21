@@ -21,11 +21,7 @@ Usage Edit these variables
 increment=15.31  # the increment that your provider adds on the Market-Price
 factor=1+0.03    # the factor (here 3%) that your provider adds on the Market-Price
 
-meter_csv_filename = 'zaehlerstand.csv'   # your meter data
-...
+meter_csv_filename = 'meter_data.csv'   # your meter data
 
-# Beispielaufruf
-start_date = datetime(2023, 5, 1, 0, 0, 0)  # Example: 01.05.2023 00:00:00
-end_date = datetime(2023, 12, 18, 1, 0, 0)  # Example: 18.12.2023 01:00:00
 ```
 And run the file.
