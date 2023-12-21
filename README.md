@@ -1,4 +1,4 @@
-This code reads in your meter-data (example: zaehlerstand.csv) and calculates what you would have paid at awattar, tibber or similar. Note that the input file must be in Wh (Watt Hours) and not in kWh. Also note the formatting of the time/date.
+This code reads in your meter-data (example: meter_data.csv, Grafana/Influx export) and calculates what you would have paid at awattar, tibber or similar. Note that the input file must be in Wh (Watt Hours) and not in kWh. Also note the formatting of the time/date.
 
 Output:
 ```
