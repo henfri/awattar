@@ -110,14 +110,15 @@ def calculate_consumption(meter_data, start_date, end_date):
 
 def check_matching_dates(meter_data, market_data):
     # Überprüfe, ob für jede Zeile in einer CSV-Datei eine Zeile in der anderen CSV-Datei vorhanden ist
-    meter_dates = set(date for date, _ in meter_data)
-    market_dates = set(date for date, _ in market_data)
+    meter_dates = set(date.replace(minute=0, second=0, microsecond=0) for date, _ in meter_data)
+    market_dates = set(date.replace(minute=0, second=0, microsecond=0) for date, _ in market_data)
 
-    missing_in_meter = meter_dates - market_dates
-    missing_in_market = market_dates - meter_dates
 
-    #if missing_in_meter:
-    #    print(f"Fehlende Daten im Zählerdatensatz für die folgenden Zeitpunkte: {missing_in_meter}")
+    missing_in_market = meter_dates - market_dates
+    missing_in_meter = market_dates - meter_dates
+
+    if missing_in_meter:
+        print(f"Fehlende Daten im Zählerdatensatz für die folgenden Zeitpunkte: {missing_in_meter}")
     if missing_in_market:
         print(f"Fehlende Daten im Marktdatensatz für die folgenden Zeitpunkte: {missing_in_market}")
 
@@ -261,7 +262,7 @@ def sum_consumption_cost_per_year(written_data):
 increment=15.31
 factor=1+0.03
 
-meter_csv_filename = 'zaehlerstand.csv'
+meter_csv_filename = 'meter_data.csv'
 market_csv_filename = 'market_data.csv'
 
 meter_data = read_meter_data(meter_csv_filename)
@@ -270,9 +271,10 @@ start_date = min(meter_data, key=lambda x: x[0])[0]
 end_date = max(meter_data, key=lambda x: x[0])[0]
 
 
-# Beispielaufruf
-start_date = datetime(2023, 5, 1, 0, 0, 0)  # Beispiel: 08.11.2021 00:00:00
-end_date = datetime(2023, 12, 18, 1, 0, 0)    # Beispiel: 10.11.2021 00:00:00
+# Hardcode dates. Otherwise the range of the meter-data is used.
+#start_date = datetime(2023, 1, 1, 0, 0, 0)  # Beispiel: 08.11.2021 00:00:00
+#end_date = datetime(2023, 12, 18, 1, 0, 0)    # Beispiel: 10.11.2021 00:00:00
+
 market_data = get_market_data(start_date, end_date)
 
 if market_data:
